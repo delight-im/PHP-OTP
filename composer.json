@@ -1,0 +1,18 @@
+{
+	"name": "delight-im/otp",
+	"description": "One-time password (OTP) implementation for two-factor authentication with TOTP in accordance with RFC 6238 and RFC 4226",
+	"require": {
+		"php": ">=5.6.0",
+		"ext-openssl": "*",
+		"paragonie/constant_time_encoding": "~1.1.0"
+	},
+	"type": "library",
+	"keywords": [ "2fa", "tfa", "otp", "totp", "hotp", "google-authenticator", "rfc-6238", "rfc6238", "rfc-4226", "rfc4226", "two-factor", "two-factor-authentication" ],
+	"homepage": "https://github.com/delight-im/PHP-OTP",
+	"license": "MIT",
+	"autoload": {
+		"psr-4": {
+			"Delight\\Otp\\": "src/"
+		}
+	}
+}
