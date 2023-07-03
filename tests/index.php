@@ -50,6 +50,15 @@ $rfc6238TestKeySha1 = \ParagonIE\ConstantTime\Base32::encodeUpperUnpadded('12345
 $rfc6238TestKeySha256 = \ParagonIE\ConstantTime\Base32::encodeUpperUnpadded('12345678901234567890123456789012');
 $rfc6238TestKeySha512 = \ParagonIE\ConstantTime\Base32::encodeUpperUnpadded('1234567890123456789012345678901234567890123456789012345678901234');
 
+(\Delight\Otp\Otp::verifyTotp('EJDV-6NTO-IOOB-ZE4C', \Delight\Otp\Otp::generateTotp('EJDV-6NTO-IOOB-ZE4C')) === true) or \fail(__LINE__);
+(\Delight\Otp\Otp::verifyTotp('EJDV-6NTO-IOOB-ZE4C', \Delight\Otp\Otp::generateTotp('EJDV-6NTO-IOOB-ZE4C', \time()), 0, 0) === true) or \fail(__LINE__);
+(\Delight\Otp\Otp::verifyTotp('EJDV-6NTO-IOOB-ZE4C', \Delight\Otp\Otp::generateTotp('EJDV-6NTO-IOOB-ZE4C', \time() - 30), 0, 0) === false) or \fail(__LINE__);
+(\Delight\Otp\Otp::verifyTotp('EJDV-6NTO-IOOB-ZE4C', \Delight\Otp\Otp::generateTotp('EJDV-6NTO-IOOB-ZE4C', \time() - 30), 0, 1) === false) or \fail(__LINE__);
+(\Delight\Otp\Otp::verifyTotp('EJDV-6NTO-IOOB-ZE4C', \Delight\Otp\Otp::generateTotp('EJDV-6NTO-IOOB-ZE4C', \time() - 30), 1, 0) === true) or \fail(__LINE__);
+(\Delight\Otp\Otp::verifyTotp('EJDV-6NTO-IOOB-ZE4C', \Delight\Otp\Otp::generateTotp('EJDV-6NTO-IOOB-ZE4C', \time() + 30), 0, 0) === false) or \fail(__LINE__);
+(\Delight\Otp\Otp::verifyTotp('EJDV-6NTO-IOOB-ZE4C', \Delight\Otp\Otp::generateTotp('EJDV-6NTO-IOOB-ZE4C', \time() + 30), 1, 0) === false) or \fail(__LINE__);
+(\Delight\Otp\Otp::verifyTotp('EJDV-6NTO-IOOB-ZE4C', \Delight\Otp\Otp::generateTotp('EJDV-6NTO-IOOB-ZE4C', \time() + 30), 0, 1) === true) or \fail(__LINE__);
+
 (\Delight\Otp\Otp::verifyTotp($rfc6238TestKeySha1, '94287082', 3, 0, \strtotime('1970-01-01T00:00:59Z') + 90, 8, 30, 0, \Delight\Otp\Otp::HASH_FUNCTION_SHA_1) === true) or \fail(__LINE__);
 (\Delight\Otp\Otp::verifyTotp($rfc6238TestKeySha1, '94287082', 2, 0, \strtotime('1970-01-01T00:00:59Z') + 90, 8, 30, 0, \Delight\Otp\Otp::HASH_FUNCTION_SHA_1) === false) or \fail(__LINE__);
 (\Delight\Otp\Otp::verifyTotp($rfc6238TestKeySha1, '94287082', 2, 0, \strtotime('1970-01-01T00:00:59Z') + 60, 8, 30, 0, \Delight\Otp\Otp::HASH_FUNCTION_SHA_1) === true) or \fail(__LINE__);
