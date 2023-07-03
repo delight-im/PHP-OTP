@@ -193,6 +193,11 @@ final class Otp {
 	 */
 	public static function verifyTotp($secret, $otpValue, $lookBehindSteps = null, $lookAheadSteps = null, $t = null, $otpLength = null, $t_x = null, $t_0 = null, $hashFunction = null) {
 		$otpValue = !empty($otpValue) ? (string) $otpValue : '';
+		$lookBehindSteps = isset($lookBehindSteps) ? \abs((int) $lookBehindSteps) : 2;
+		$lookAheadSteps = isset($lookAheadSteps) ? \abs((int) $lookAheadSteps) : 2;
+		$t = isset($t) ? (int) $t : \time();
+		$otpLength = !empty($otpLength) ? (int) $otpLength : self::OTP_LENGTH_DEFAULT;
+		$t_x = !empty($t_x) ? (int) $t_x : self::INTERVAL_LENGTH_DEFAULT;
 
 		// make sure the supplied OTP value does not contain any characters other than decimal digits
 		$otpValue = \preg_replace('/[^0-9]/', '', $otpValue);
@@ -205,9 +210,6 @@ final class Otp {
 		if (\strlen($otpValue) !== $otpLength) {
 			return false;
 		}
-
-		$lookBehindSteps = isset($lookBehindSteps) ? \abs((int) $lookBehindSteps) : 2;
-		$lookAheadSteps = isset($lookAheadSteps) ? \abs((int) $lookAheadSteps) : 2;
 
 		for ($s = -$lookBehindSteps; $s <= $lookAheadSteps; $s++) {
 			$expectedOtpValue = self::generateTotp($secret, $t + $t_x * $s, $otpLength, $t_x, $t_0, $hashFunction);
