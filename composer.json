@@ -4,7 +4,7 @@
 	"require": {
 		"php": ">=5.6.0",
 		"ext-openssl": "*",
-		"paragonie/constant_time_encoding": "~1.1.0"
+		"paragonie/constant_time_encoding": "~1.1.0 || ~2.7.0"
 	},
 	"type": "library",
 	"keywords": [ "2fa", "tfa", "otp", "totp", "hotp", "google-authenticator", "rfc-6238", "rfc6238", "rfc-4226", "rfc4226", "two-factor", "two-factor-authentication" ],
